@@ -25,7 +25,7 @@ namespace msa {
 		
 		if(lineWidth) {
 			glLineWidth(lineWidth);
-			GLfloat vertex[numItems * 3];
+			GLfloat* vertex = new GLfloat[numItems * 3];
 			for(int i=0; i<numItems; i++) {
 				vertex[i*3]		= spline.at(i).x;
 				vertex[(i*3)+1] = spline.at(i).y;
@@ -34,11 +34,12 @@ namespace msa {
 			glEnableClientState(GL_VERTEX_ARRAY);
 			glVertexPointer(3, GL_FLOAT, 0, vertex);
 			glDrawArrays(GL_LINE_STRIP, 0, numItems);
+			delete[] vertex;
 		}
 		
 		if(dotSize) {
 			glPointSize(dotSize);
-			GLfloat vertex[numItems * 3];
+			GLfloat* vertex = new GLfloat[numItems * 3];
 			for(int i=0; i<numItems; i++) {
 				vertex[i*3]		= spline.at(i).x;
 				vertex[(i*3)+1] = spline.at(i).y;
@@ -47,6 +48,7 @@ namespace msa {
 			glEnableClientState(GL_VERTEX_ARRAY);
 			glVertexPointer(3, GL_FLOAT, 0, vertex);
 			glDrawArrays(GL_POINTS, 0, numItems);
+			delete[] vertex;
 		}		
 	}
 	
@@ -59,7 +61,7 @@ namespace msa {
 		if(lineWidth) {
 			glLineWidth(lineWidth);
 			
-			GLfloat vertex[numSteps * 3];
+			GLfloat* vertex = new GLfloat[numSteps * 3];
 			int i=0;
 			for(float f=0; f<1; f+= spacing) {
 				Vec3f v			= spline.sampleAt(f);
@@ -71,11 +73,12 @@ namespace msa {
 			glEnableClientState(GL_VERTEX_ARRAY);
 			glVertexPointer(3, GL_FLOAT, 0, vertex);
 			glDrawArrays(GL_LINE_STRIP, 0, numSteps);
+			delete[] vertex;
 		}
 		
 		if(dotSize) {
 			glPointSize(dotSize);
-			GLfloat vertex[numSteps * 3];
+			GLfloat* vertex = new GLfloat[numSteps * 3];
 			int i=0;
 			for(float f=0; f<1; f+= spacing) {
 				Vec3f v			= spline.sampleAt(f);
@@ -87,6 +90,7 @@ namespace msa {
 			glEnableClientState(GL_VERTEX_ARRAY);
 			glVertexPointer(3, GL_FLOAT, 0, vertex);
 			glDrawArrays(GL_POINTS, 0, numSteps);
+			delete[] vertex;
 		}
 	}
 	
